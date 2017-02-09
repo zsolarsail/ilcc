@@ -1,2 +1,2 @@
 
-SUBDIRS = src
+SUBDIRS = libilcc src

@@ -6,10 +6,14 @@ AM_INIT_AUTOMAKE
 
 AC_CONFIG_HEADERS([config.h])
 
+AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_INSTALL
 AC_PROG_RANLIB
 
+AC_CHECK_HEADER([dlfcn.h],,[AC_MSG_ERROR([Required dlfcn.h])])
+
+AC_CHECK_LIB([dl], [dlopen], , [AC_MSG_ERROR([Required libdl])] )
 
 AC_LANG(C++)
 AC_MSG_CHECKING([for g++11 without opt])
@@ -37,6 +41,7 @@ AC_SUBST([AM_CXXFLAGS], $CXXFL)
 
 AC_CONFIG_FILES(
     Makefile
+    libilcc/Makefile
     src/Makefile
     )
 

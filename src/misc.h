@@ -1,3 +1,5 @@
+#pragma once
+
 /*
 MIT License
 
@@ -22,29 +24,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <string>
+#include <vector>
 
-#include <iostream>
+using namespace std;
 
-#include "compile.h"
+// ----------------------
 
-int main(int argc, char **argv)
-{
-    string app = build(argv[1]);
+extern long uid;
+extern string s_uid;
 
-    if(app.empty()) {
-	fprintf(stderr, "error: run code.\n");
-	return -1;
-    };
-    
-    string err = run(app, 2, argc, argv);
-    
-    if(!err.empty()) {
-	fprintf(stderr, "error: %s\n", err.c_str());
-	return -1;
-    };
-    
-    return 0;
+extern string wdir;
+extern string wdir_s;
+
+extern string s_pid;
+// ----------------------
+
+void mk_root(void);
+void mk_wdir(void);
+
+// ----------------------
+
+bool file_exists(const string &path);
+
+// ----------------------
+
+string app_name(const string &name);
+string find_app(const string &name);
+
+// ----------------------
+
+class FileCleaner {
+    vector<string> files;
+
+public:
+    FileCleaner() = default;
+    ~FileCleaner() { remove(); };
+    void add(const string &name) { files.push_back(name); };
+    void remove(void);
 };
+
+
+// ----------------------
 

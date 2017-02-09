@@ -1,3 +1,5 @@
+#pragma once
+
 /*
 MIT License
 
@@ -22,29 +24,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <string>
 
-#include <iostream>
+using namespace std;
 
-#include "compile.h"
+// ----------------------
 
-int main(int argc, char **argv)
-{
-    string app = build(argv[1]);
+extern bool std_h;
+extern bool std_hpp;
+extern bool lib_ilcc;
 
-    if(app.empty()) {
-	fprintf(stderr, "error: run code.\n");
-	return -1;
-    };
-    
-    string err = run(app, 2, argc, argv);
-    
-    if(!err.empty()) {
-	fprintf(stderr, "error: %s\n", err.c_str());
-	return -1;
-    };
-    
-    return 0;
-};
+extern bool use_entry;
 
+// ----------------------
+// ----------------------
+string build_name(const string &code);
+
+bool mk_code(const string &src, string &code);
+
+bool compile(const string &code, const string &dest_name);
+
+string build(const string &src);
+
+string run(const string &app, int index, int argc, char **argv);
+// ----------------------
